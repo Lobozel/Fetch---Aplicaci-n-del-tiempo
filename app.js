@@ -22,11 +22,13 @@ window.addEventListener('load',() =>{
                 return response.json();
             })
             .then(data =>{
-                const {temperature, summary, icon} = data.currently;
+                const { temperature, summary, icon } = data.currently;
                 //Set DOM Elements from the API
                 temperatureDegree.textContent = temperature;
                 temperatureDescription.textContent = summary;
                 locationTimezone.textContent = data.timezone;
+                //FORMULA FOR CELSIUS
+                let celsius = (temperature - 32) * (5 / 9);
                 //Set Icon
                 setIcons(icon, document.querySelector('.icon'));
 
@@ -34,8 +36,10 @@ window.addEventListener('load',() =>{
                 temperatureSection.addEventListener('click', () =>{
                     if(temperatureSpan.textContent == "F"){
                         temperatureSpan.textContent = "C";
+                        temperatureDegree.textContent = Math.floor(celsius);
                     }else{
                         temperatureSpan.textContent = "F";
+                        temperatureDegree.textContent = temperature;
                     }
                 })
             });
